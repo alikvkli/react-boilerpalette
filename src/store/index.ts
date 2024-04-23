@@ -3,7 +3,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 import storage from 'redux-persist/lib/storage/session';
 import app from "../features/app";
-import autism from "../features/autism";
 
 const encryptor = encryptTransform({
     secretKey: 'hVmYq3t6w9y$B&E)H@McQfTjWnZr4u7x',
@@ -11,7 +10,6 @@ const encryptor = encryptTransform({
 
 const reducers = combineReducers({
     app,
-    autism
 });
 
 const persistConfig = {
