@@ -1,17 +1,12 @@
-import { ReactNode, useEffect } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "../../hooks";
-import { useNavigate } from "react-router-dom";
 
-export default function PrivateLayout({ children }: { children: ReactNode }) {
-    const navigate = useNavigate();
+export default function PrivateLayout() {
     const { login } = useAppSelector(state => state.app);
 
-    useEffect(() => {
-        if (!login) {
-            navigate("/login");
-        }
-    }, [login])
+    if (!login) {
+        return <Navigate to="/login" replace />;
+    }
 
-    return children
-
+    return <Outlet />;
 }

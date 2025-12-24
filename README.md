@@ -12,25 +12,26 @@ A modern, production-ready React boilerplate built with performance and develope
 - **Top-tier Stack:**
   - **React 19**: Leveraging the latest React features and hooks.
   - **Vite 7**: Lightning-fast development server and optimized builds.
-  - **Tailwind CSS v4**: Utility-first CSS framework with the latest engine and simplified configuration.
+  - **Tailwind CSS v4**: Utility-first CSS framework with a new high-speed engine.
   - **TypeScript**: Static typing for robust and maintainable code.
+
+- **Architecture:**
+  - **Lazy Loading**: Automatic route-based code splitting using `React.lazy` and `Suspense`.
+  - **Auth Guards**: Declarative layout-based authentication protection using `Navigate` and `Outlet`.
+  - **Centralized Routing**: All application paths managed from a single `paths.ts` constant.
 
 - **State Management:**
   - **Redux Toolkit**: Standardized and efficient Redux logic.
-  - **Redux Persist**: Persist your state across page reloads effortlessly.
+  - **Redux Persist**: Secure state persistence with **Encryption** support.
 
 - **UI & Experience:**
   - **Lucide React**: Beautiful & consistent icon set.
-  - **Headless UI & Radix UI**: Unstyled, accessible UI primitives for building custom components.
-  - **Ubuntu Font**: Pre-configured Google Fonts integration.
-  - **Responsive Design**: Mobile-first approach.
+  - **Page Loader**: Integrated branded loading screen for better UX.
+  - **Ubuntu Font**: Modern typography pre-configured via Google Fonts.
 
-- **Utilities & Tools:**
-  - **React Router v7**: Modern routing for single-page applications.
-  - **Axios**: Promise-based HTTP client.
-  - **Formik & Yup**: Easy form handling and validation.
-  - **Classnames & Tailwind Merge**: Clean conditional class handling without conflicts.
-  - **ESLint & Prettier**: Enforced code quality and formatting.
+- **Security:**
+  - **Environment Variables**: Robust configuration using `.env` files.
+  - **Encrypted State**: Sensitive state data is encrypted before being stored in session storage.
 
 ## 🛠️ Installation
 
@@ -40,12 +41,18 @@ A modern, production-ready React boilerplate built with performance and develope
    cd react-boilerpalette
    ```
 
-2. **Install dependencies**
+2. **Setup environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your secret keys
+   ```
+
+3. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **Start the development server**
+4. **Start the development server**
    ```bash
    npm run dev
    ```
@@ -63,29 +70,25 @@ A modern, production-ready React boilerplate built with performance and develope
 
 ```bash
 src/
-├── app/          # App setup (store, providers)
-├── components/   # Reusable UI components
-├── features/     # Feature-based modules (slices, logic)
-├── hooks/        # Custom React hooks
-├── layouts/      # Page layout wrapper components
-├── lib/          # Utility libraries configuration (axios, utils)
-├── pages/        # Application pages/screens
-├── routes/       # Route definitions
-└── store/        # Redux store configuration
+├── components/   # Reusable UI components (e.g., PageLoader)
+├── features/     # Feature-based logic and slices (app, etc.)
+├── hooks/        # Custom React hooks (including typed store hooks)
+├── layouts/      # Auth-guarded Layout components (Private/Public)
+├── lib/          # Utilities and Axios configuration
+├── pages/        # Route-level components
+├── routes/       # Router config, paths.ts, and root outlet
+└── store/        # Redux store and persistence setup
 ```
 
-## 🎨 Styling
+## 🎨 Styling & Theme
 
-This project uses **Tailwind CSS v4**.
+This project uses **Tailwind CSS v4** with a CSS-first configuration approach.
 - **Font**: Ubuntu (configured in `src/index.css` via `@theme`).
-- **Icons**: [Lucide React](https://lucide.dev/).
-
-To customize the theme, edit `src/index.css` using the new CSS-first configuration approach:
+- **Path**: Configuration managed in `src/index.css` using modern CSS variables.
 
 ```css
 @theme {
   --font-sans: "Ubuntu", sans-serif;
-  --color-brand: #4f46e5;
 }
 ```
 

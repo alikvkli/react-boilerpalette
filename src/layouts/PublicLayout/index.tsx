@@ -1,17 +1,12 @@
-import { useEffect } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "../../hooks";
-import { useNavigate } from "react-router-dom";
 
-export default function PublicLayout({ children }: { children: React.ReactNode }) {
-    const navigate = useNavigate();
+export default function PublicLayout() {
     const { login } = useAppSelector(state => state.app);
 
-    useEffect(() => {
-        if (login) {
-            navigate("/");
-        }
-    }, [login])
+    if (login) {
+        return <Navigate to="/" replace />;
+    }
 
-    return <>{children}</>
-
+    return <Outlet />;
 }

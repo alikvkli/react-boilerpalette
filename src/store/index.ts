@@ -1,43 +1,40 @@
-import { configureStore, combineReducers, ThunkAction, Action } from "@reduxjs/toolkit"
-import { persistStore, persistReducer } from 'redux-persist';
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 import storage from 'redux-persist/lib/storage/session';
 import app from "../features/app";
 
 const encryptor = encryptTransform({
-    secretKey: 'hVmYq3t6w9y$B&E)H@McQfTjWnZr4u7x',
+    secretKey: import.meta.env.VITE_APP_ENCRYPTION_KEY || 'modify-this-secret-key',
+    onError: function (error) {
+        console.error('An error occurred during encryption:', error);
+    },
 });
 
 const reducers = combineReducers({
     app
 });
 
-const persistConfig = {
+export type RootReducerState = ReturnType<typeof reducers>;
+
+const persistConfig: PersistConfig<RootReducerState> = {
     key: 'root',
     storage: storage,
     transforms: [encryptor]
 };
 
-//@ts-ignore
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedReducer = persistReducer<RootReducerState>(persistConfig, reducers);
 
 export const store = configureStore({
-    //@ts-ignore
-    reducer: typeof window !== "undefined" ? persistedReducer : reducers,
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: false
         }),
-    devTools: process.env.NODE_ENV === 'development'
+    devTools: import.meta.env.DEV
 });
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof reducers>;
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export type AppThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    RootState,
-    unknown,
-    Action<string>
->;
