@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     mode: 'jit',
     darkMode: ["class"],
     content: [
@@ -13,7 +13,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Inter", "sans-serif"],
+                sans: ["Ubuntu", "sans-serif"],
             },
         },
     }
